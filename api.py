@@ -13,14 +13,17 @@ def show_main_page():
     return render_template('text.html', companies=clist)
 
 
-@app.route('/price', methods=['POST'])
+@app.route('/price', methods=['POST', 'GET'])
 def calculate_price():
 
     selected_country = "AE"
 
     data = {
+
         'price': data_helpers.calculate_neo4j_price(country=selected_country)
+
     }
+
     js = json.dumps(data)
 
     resp = Response(js, status=200, mimetype='application/json')

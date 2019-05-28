@@ -13,6 +13,7 @@
 
 
     <form style="text-align:center; font-size: 18pt" class = "" action="javascript:void(0);">
+
         <input id="companiesInput" list="companies" name="company" type="text" placeholder="choose your company" style="font-size:18pt; height:50px; width:320px">
 
         <datalist id="companies">
@@ -20,6 +21,9 @@
                 <option value= '{{company}}'>
             {% endfor %}
         </datalist>
+
+
+        <p style="margin-top: 70px;"></p>
 
         <button name="price" type="submit" value= "check" style="font-size: 15pt; width: 100px" onclick="calculatePrice()">
             Calculate
@@ -37,18 +41,29 @@
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script>
+
     function calculatePrice() {
-        var company = document.getElementById('companiesInput').value;
+
+        //var company = document.getElementById('companiesInput').value;
+
         $.ajax({
+
             type: 'POST',
+
             url: '/price',
+
             data: JSON.stringify({key: 'value'}),
+
             success: function(data) {
-                console.log(data);
+
                 document.getElementById('priceLabel').textContent = data.price;
+
             },
+
             dataType: 'json',
+
         });
+
     }
 </script>
 
