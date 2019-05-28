@@ -14,11 +14,11 @@
 
     <form style="text-align:center; font-size: 18pt" class = "" action="javascript:void(0);">
 
-        <input id="companiesInput" list="companies" name="company" type="text" placeholder="choose your company" style="font-size:18pt; height:50px; width:320px">
+        <input id="countriesInput" list="countries" name="country" type="text" placeholder="choose your country" style="font-size:18pt; height:50px; width:320px">
 
-        <datalist id="companies">
-            {% for company in companies %}
-                <option value= '{{company}}'>
+        <datalist id="countries">
+            {% for country in countries %}
+                <option value= '{{country}}'>
             {% endfor %}
         </datalist>
 
@@ -44,7 +44,7 @@
 
     function calculatePrice() {
 
-        //var company = document.getElementById('companiesInput').value;
+        var country = document.getElementById('countriesInput').value;
 
         $.ajax({
 
@@ -52,7 +52,9 @@
 
             url: '/price',
 
-            data: JSON.stringify({key: 'value'}),
+            contentType: "application/json",
+            
+            data: JSON.stringify({country: country}),
 
             success: function(data) {
 

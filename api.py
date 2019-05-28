@@ -8,15 +8,17 @@ app = Flask(__name__)
 @app.route('/')
 def show_main_page():
 
-    clist = ["AdMob","Advertising whale",'AET','AEIndustries','Agile Mobile','ALT Services','Ammo','AppGen','Appss','BCA','CodiProf','Dextra','Doom','Dukes','GenerationM','GenMob','KeyMarketing','MatriX','MobileKeyServices','Mobiller','Mobistar','Mobonobe','Mobster','Newlight','Neostar','Optiserv','Place4','Proddev','Production melon','Prodster','Quantum mobile','QXZ','RatioAdv','Refcord','RingRang','ServTech','Simone Well','Victory Development','VMessage','XTF sms']
+    clist = ['AE','BE','BH','CA','CH','IE','SA']
 
-    return render_template('text.html', companies=clist)
+    return render_template('text.html', countries=clist)
 
 
 @app.route('/price', methods=['POST', 'GET'])
 def calculate_price():
 
-    selected_country = "AE"
+    selected_country = request.json['country']
+    
+    print(selected_country)
 
     data = {
 
