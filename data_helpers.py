@@ -9,4 +9,10 @@ driver = GraphDatabase.driver(db_location,auth = basic_auth(username, password))
 
 # ------- algo ------
 
+def calculate_neo4j_price():
 
+    with driver.session() as session:
+
+        result = session.run("RETURN rand() AS price")
+
+        return result.single()['price']

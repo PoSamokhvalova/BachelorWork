@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, Response
 import json
 from random import randint
+import data_helpers
 
 app = Flask(__name__)
 
@@ -15,8 +16,11 @@ def show_main_page():
 
 @app.route('/price', methods=['POST'])
 def calculate_price():
+
+    # вместо рандом числа передать параметер из запроса другой функции
+
     data = {
-        'price': randint(10, 50)
+        'price': data_helpers.calculate_neo4j_price()
     }
     js = json.dumps(data)
     command= 'select dfgv -> njj []'
