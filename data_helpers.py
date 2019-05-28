@@ -9,10 +9,15 @@ driver = GraphDatabase.driver(db_location,auth = basic_auth(username, password))
 
 # ------- algo ------
 
-def calculate_neo4j_price():
+
+def calculate_neo4j_price(country):
 
     with driver.session() as session:
 
-        result = session.run("RETURN rand() AS price")
+        result = session.run("MATCH (bulk :Bulk)-[v1 :SENT]->(aggregator :Aggregator)-[v2 :SENT]->(operator :Operator)-[:IN_THE]->(country :Country) "
+                             "WHERE country.name = $COUNTRY "
+                             "WITH min(v1.price+v2.price) AS price_min "
+                             "RETURN price_min AS price"
+                             , {'COUNTRY': country})
 
         return result.single()['price']

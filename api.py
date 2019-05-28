@@ -19,8 +19,10 @@ def calculate_price():
 
     # вместо рандом числа передать параметер из запроса другой функции
 
+    selected_country = "AE"
+
     data = {
-        'price': data_helpers.calculate_neo4j_price()
+        'price': data_helpers.calculate_neo4j_price(country=selected_country)
     }
     js = json.dumps(data)
     command= 'select dfgv -> njj []'
