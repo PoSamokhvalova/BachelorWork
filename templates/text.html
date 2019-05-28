@@ -1,4 +1,55 @@
 <!DOCTYPE html>
 <html>
-Hello World
+
+<head>
+    <meta charset = "utf-8">
+    <title>Price calculator</title>
+</head>
+
+<body style = "background-color: #BDFC7E">
+    <p style="margin-top: 100px;"></p>
+    <p style="font-family: Zapfino; font-size:220%; line-height: 1.25; margin-top: 50px; text-align:center; color: #2d3436">Price calculator</p>
+    <p style="margin-top: 60px;"></p>
+
+
+    <form style="text-align:center; font-size: 18pt" class = "" action="javascript:void(0);">
+        <input id="companiesInput" list="companies" name="company" type="text" placeholder="choose your company" style="font-size:18pt; height:50px; width:320px">
+
+        <datalist id="companies">
+            {% for company in companies %}
+                <option value= '{{company}}'>
+            {% endfor %}
+        </datalist>
+
+        <button name="price" type="submit" value= "check" style="font-size: 15pt; width: 100px" onclick="calculatePrice()">
+            Calculate
+        </button>
+
+        <p style="margin-top: 70px;"></p>
+
+        <p style="color: #366705">Your optimal price for this geo is</p>
+        <p style="margin-top: 70px; color: #366705"></p>
+
+        <label id="priceLabel" style="color: #d63031"></label>
+
+    </form>
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    function calculatePrice() {
+        var company = document.getElementById('companiesInput').value;
+        $.ajax({
+            type: 'POST',
+            url: '/price',
+            data: JSON.stringify({key: 'value'}),
+            success: function(data) {
+                console.log(data);
+                document.getElementById('priceLabel').textContent = data.price;
+            },
+            dataType: 'json',
+        });
+    }
+</script>
+
 </html>
